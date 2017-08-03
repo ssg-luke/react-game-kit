@@ -11,6 +11,7 @@ export default class Loop extends Component {
   static propTypes = {
     children: PropTypes.any,
     style: PropTypes.object,
+    fpsLimit: PropTypes.number
   };
 
   static childContextTypes = {
@@ -19,8 +20,7 @@ export default class Loop extends Component {
 
   constructor(props) {
     super(props);
-
-    this.loop = new GameLoop();
+    this.loop = new GameLoop(this.props.fpsLimit);
   }
 
   componentDidMount() {
