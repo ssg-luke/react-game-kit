@@ -4,11 +4,18 @@ export default class GameLoop {
       callback.call();
     });
 
-    this.loopID = window.requestAnimationFrame(this.loop);
+    if (this.fpsLimit && this.fpsLimit > 0) {
+      setTimeout(() => {
+        this.loopID = window.requestAnimationFrame(this.loop);
+      }, 1000 / this.fpsLimit);
+    } else {
+      this.loopID = window.requestAnimationFrame(this.loop);
+    }
   }
-  constructor() {
+  constructor(fpsLimit) {
     this.subscribers = [];
     this.loopID = null;
+    this.fpsLimit = fpsLimit;
   }
   start() {
     if (!this.loopID) {
